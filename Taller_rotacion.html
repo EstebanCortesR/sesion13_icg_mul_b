@@ -1,0 +1,65 @@
+<canvas id='canvas' width=800 height=600>
+<script>
+	//Segundo Apellido Ruíz
+	function polygon(a, colorBorde, colorRelleno, grosor) { 
+	ctx.beginPath()
+	ctx.strokeStyle = colorBorde
+	ctx.fillStyle = colorRelleno
+	ctx.lineWidth = grosor;
+	ctx.moveTo(a[0],a[1])
+	for (i=2; i < a.length; i+=2)
+	ctx.lineTo(a[i],a[i+1]);
+	ctx.closePath()
+	ctx.stroke()
+	ctx.fill()
+}
+
+	function sumadeR(a,b){
+	var c = [];
+	for (i=0; i < a.length; i+=2){
+	c[i]=(a[i]+b[0])
+	c[i+1]=(a[i+1]+b[1])
+    }
+	return c;
+}
+
+	function restadeR(a,b){
+	var c = [];
+	for (i=0; i < a.length; i+=2){
+	c[i]=(a[i]-b[0])
+	c[i+1]=(a[i+1]-b[1])
+    }
+	return c;
+}
+
+	function rotarobjeto(a,r){
+	var c = [];
+	var m= [Math.cos(r), -Math.sin(r),Math.sin(r), Math.cos(r)]
+	for (i=0; i < a.length; i+=2){
+	c[i]=(a[i]*m[0]+a[i+1]*m[1])
+	c[i+1]=(a[i]*m[2]+a[i+1]*m[3])
+    }
+	return c;
+}
+
+	var canvas = document.getElementById('canvas')
+	var ctx = canvas.getContext('2d');
+	
+	var letraR = [24,45,131,45,131,123,161,178,118,171,65,122,65,182,24,182];
+
+	var rotacion = 75;
+
+	var vec_tran = [70,80];
+
+	var letraR_central = restadeR(letraR, vec_tran)
+
+	var letraR_rotada_central = rotarobjeto(letraR_central, rotacion)
+
+	var letraR_rotada = sumadeR(letraR_rotada_central, vec_tran)
+	
+	polygon(letraR, 'yellow','red', 4)
+	
+	polygon(letraR_rotada, 'yellow','red', 4)
+	
+
+</script>
